@@ -33,6 +33,12 @@
 				mysql_close($this->connection);
 				return; 			
  		}
+
+
+ 		function get_profile_id($email,$password){
+ 			return;
+ 		}
+
  	}
 
 

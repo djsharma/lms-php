@@ -4,13 +4,17 @@
 
 	class Auth{
 
-		 private $key = "default";
-		
+		private $key = "default";
+		private $profile_id = null;
 
 		function __construct(){
 			$this->key = "PRODUCTIONKEY";
 		}
 
+		function get_profile_id(){
+			return $this->profile_id;
+		}
+		
 
 		function get_token($profileID){
 
@@ -30,14 +34,12 @@
 				if(!empty($this->key)){
 					
 					$decoded = JWT::decode($jwt, $this->key ,array('HS256'));
-					//echo $decoded->profile_id; 
+					$this->profile_id = $decoded->profile_id; 
 					return $decoded->profile_id; 
 				}
-				//echo "flow here\n";
 				return null;			
 
 			}catch(Exception $e){
-				//echo "catch exe";
 				return null;
 			}
 						
