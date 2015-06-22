@@ -32,12 +32,12 @@ class Comment{
 
 				case 'POST':
 							$requestURI = explode('/',$_SERVER['REQUEST_URI']);	
-							if($requestURI[3]==null){ // POST /comment
+							if($requestURI[3]!=null){ // POST /comment/:topic_id
 								//create a comment 
-								$response = $this->create_comment($_POST['detail'],$requestURI[3],$this->profile_id);
+								$response = $this->create_comment($_POST['comment'],$requestURI[3],$this->profile_id);
 								return $response;
 							}else{
-								echo "ERROR_PARAM_FOUND";
+								echo "ERROR_PARAM_NOTFOUND";
 								return;
 								break;	
 							}	
@@ -47,7 +47,8 @@ class Comment{
 							
 							$requestURI = explode('/',$_SERVER['REQUEST_URI']);	
 							if($requestURI[3]!=null){   //  PUT /comment/:comment update the comment with comment_id								//update course
-								$response = $this->update_comment($_POST['detail'],$requestURI[3]);
+							
+								$response = $this->update_comment($parse_request['comment'],$requestURI[3]);
 								return $response;
 							}else{
 								echo "ERROR_PARAM_NOTFOUND";
@@ -78,13 +79,27 @@ class Comment{
 
 	}
 
-	function get_comment($topicID){}
+	function get_comment($topicID){
+		echo "comment displayed\n";
+		return;
+	}
 
-	function create_comment(){}
+	function create_comment($comment,$topic_id){
+		echo "create comment\n";
+		echo $comment;
+		return;
+	}
 
-	function update_comment($commentID){}
+	function update_comment($comment,$commentID){
+		echo "update comment\n";
+		echo $comment;
+		return;
+	}
 
-	function delete_comment($commentID){}
+	function delete_comment($commentID){
+		echo "delete comment\n";
+		return;
+	}
 }
 
 ?>

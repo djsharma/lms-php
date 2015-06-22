@@ -77,9 +77,6 @@
 							echo "error http method";
 							break;
 			}
-
-
-
 		}
 
 

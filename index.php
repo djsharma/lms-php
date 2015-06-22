@@ -9,6 +9,10 @@ include './modules/course.php';
 include './modules/lecture.php';
 include './modules/authenticate.php';
 include './modules/forum.php';
+include './modules/comment.php';
+include './modules/assessment.php';
+include './modules/submission.php';
+include './modules/announcement.php';
 
 	$authenticate = new Authenticate();
 	

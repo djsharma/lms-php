@@ -14,12 +14,17 @@ class Router{
 
 	function _construct($profileID){
 		$this->profile_id = $profileID;
+		
 	}
 
 
 	//match with all the uri and use the file name provided 
 	// these are last points to send json data
 	function dispatch(){
+
+		parse_str(file_get_contents("php://input"),$this->parse_request);
+		
+
 		$requestURI=explode('/',$_SERVER['REQUEST_URI']);	
 		$req_module = $requestURI[2];
 		$auth = new Auth();
@@ -57,9 +62,23 @@ class Router{
 									break;	
 
 			case 'comment':			
-									
-									break;											
-		}
+									$comment = new Comment($this->profile_id);
+									$response = $comment->dispatch($this->parse_request);
+									echo "comment accessed\n";
+									break;
+			case 'assessment':		
+									$assessment = new Assessment($this->profile_id);
+									$response = $assessment->dispatch($this->parse_request);
+									echo "assessment accessed\n";
+			case 'submission':		
+									$submission = new Submission($this->profile_id);
+									$response = $submission->dispatch($this->parse_request);
+									echo "submission accessed\n";
+			case 'announcement':																													
+									$announcement = new Announcement($this->profile_id);
+									$response = $announcement->dispatch($this->parse_request);
+									echo "announcement accessed\n";
+		}		
 	}
 
 

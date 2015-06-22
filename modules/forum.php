@@ -47,7 +47,7 @@
 							$requestURI = explode('/',$_SERVER['REQUEST_URI']);	
 							if($requestURI[3]!=null){   //  PUT /topic/:topic_id update the topic with topic_id
 								//update course
-								$response = $this->update_topic($_POST['topic'],$_POST['text'],$requestURI[3]);
+								$response = $this->update_topic($parse_request['topic'],$parse_request['text'],$requestURI[3]);
 								return $response;
 							}else{
 								echo "ERROR_PARAM_NOTFOUND";
