@@ -8,12 +8,14 @@ class Router{
 	private $access = false;
 	private $parse_request = array(); //useful only for delete and put request
 	private $profile_id = null;
+	private $db = null;
 
 
 
+	public function __construct($db,$profileID){
 
-	function _construct($profileID){
 		$this->profile_id = $profileID;
+		$this->db = $db;
 		
 	}
 
@@ -22,15 +24,19 @@ class Router{
 	// these are last points to send json data
 	function dispatch(){
 
+		
+				
+
 		parse_str(file_get_contents("php://input"),$this->parse_request);
 		
 
 		$requestURI=explode('/',$_SERVER['REQUEST_URI']);	
 		$req_module = $requestURI[2];
 		$auth = new Auth();
+		
 		switch($req_module){
 			case 'profile' : 
-									$profile = new Profile($this->profile_id);
+									$profile = new Profile($this->db,$this->profile_id);
 									$response = $profile->dispatch($this->parse_request);
 									echo "profile accessed\n";
 									echo $response;
@@ -42,40 +48,40 @@ class Router{
 									break;
 
 			case 'course' : 		
-									$course = new Course($this->profile_id);
+									$course = new Course($this->db,$this->profile_id);
 									$response = $course->dispatch($this->parse_request);
 									echo "\ncourse accessed\n";
 									//echo $response;
 									break;
 
 			case 'lecture' : 		
-									$lecture = new Lecture($this->profile_id);
+									$lecture = new Lecture($this->db,$this->profile_id);
 									$response = $lecture->dispatch($this->parse_request);
 									echo "\nlecture accessed\n";
 									//echo $response;
 									break;
 			
 			case 'topic' :			
-									$forum = new Forum($this->profile_id);
+									$forum = new Forum($this->db,$this->profile_id);
 									$response = $forum->dispatch($this->parse_request);
 									echo "\nforum accessed\n";
 									break;	
 
 			case 'comment':			
-									$comment = new Comment($this->profile_id);
+									$comment = new Comment($this->db,$this->profile_id);
 									$response = $comment->dispatch($this->parse_request);
 									echo "comment accessed\n";
 									break;
 			case 'assessment':		
-									$assessment = new Assessment($this->profile_id);
+									$assessment = new Assessment($this->db,$this->profile_id);
 									$response = $assessment->dispatch($this->parse_request);
 									echo "assessment accessed\n";
 			case 'submission':		
-									$submission = new Submission($this->profile_id);
+									$submission = new Submission($this->db,$this->profile_id);
 									$response = $submission->dispatch($this->parse_request);
 									echo "submission accessed\n";
 			case 'announcement':																													
-									$announcement = new Announcement($this->profile_id);
+									$announcement = new Announcement($this->db,$this->profile_id);
 									$response = $announcement->dispatch($this->parse_request);
 									echo "announcement accessed\n";
 		}		

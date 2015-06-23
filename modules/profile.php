@@ -3,21 +3,27 @@
 class Profile{
 
 	private $profile_id = null;
+	private $db = null;
 
-	function __construct($profileID){
+	/*function __construct($profileID){
 
 			$this->profile_id = $profileID;
 			
 			//temporary development	
-			/*$db = new Db('localhost','root','root');
+			$db = new Db('localhost','root','root');
 			$result = $db->execute("select * from profile");
 			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
     			printf("%s %s \n", $row["first_name"], $row["last_name"]);  
 			}
 			mysql_free_result($result);
-			$db->close_db();*/
+			$db->close_db();
 			//temporary development ends here	
 	
+	}*/
+
+	function __construct($database,$profileID){
+		$this->profile_id = $profileID;
+		$this->db = $database;
 	}
 
 
@@ -87,7 +93,19 @@ class Profile{
 	}	
 
 	function get_profile($profileID){
-
+		
+		
+			
+			$result=$this->db->execute("select * from profile");
+			
+			//$result = $bind->execute("select * from profile");
+			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+    			printf("%s %s \n", $row["first_name"], $row["last_name"]);  
+			}
+			mysql_free_result($result);
+			
+		 	
+		
 		echo "\nget profile\n";
 		echo $profileID;
 		echo "\n";

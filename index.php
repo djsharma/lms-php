@@ -14,19 +14,26 @@ include './modules/assessment.php';
 include './modules/submission.php';
 include './modules/announcement.php';
 
-	$authenticate = new Authenticate();
+	$db = new Db('localhost','root','root');
+
+	
+	$authenticate = new Authenticate($db);
 	
 	if($authenticate->get_access()) {
+		
 		$authenticate->get_response();
+		
 		$profile_id=$authenticate->get_token();
-		$router = new Router($profile_id);	
+		
+		$router = new Router($db,$profile_id);
+
 		$router->dispatch();
 			
 	}else{
 		$authenticate->get_response();
 	}
 
-
+	$db->close_db();
 	
 
 

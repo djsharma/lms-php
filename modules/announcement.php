@@ -2,11 +2,14 @@
 
 	class Announcement{
 
-		private $profile_id;
+		private $profile_id=null;
+		private $db = null;
 
-		function _construct($profileID){
+		function __construct($database,$profileID){
 			$this->profile_id = $profileID;
+			$this->db = $database;
 		}
+
 		function dispatch(){
 			$method = $_SERVER['REQUEST_METHOD'];
 			$response = array();

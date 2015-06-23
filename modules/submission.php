@@ -2,9 +2,11 @@
 
 	class Submission{
 		private $profile_id = null;
+		private $db = null;
 		
-		function _construct($profileID){
-			$this->profile_id=$profileID;
+		function __construct($database,$profileID){
+			$this->profile_id = $profileID;
+			$this->db = $database;
 		}
 		
 		function dispatch(){

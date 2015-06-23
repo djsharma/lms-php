@@ -4,14 +4,19 @@
  	private $access = null;
  	private $token = null;
  	private $profile_id = null;
+ 	private $db =null;
 
- 	function _construct(){
+ 	function __construct($database){
+ 	;
  		$this->access = false;
+ 		$this->db = $database;
+ 		$this->authenticate();
  	}
  	
  	//take decisions for /authenticate and do whole processing here
  	////////////////////////////////////////////////////////////////
  	function authenticate(){
+
  		$auth = new Auth();
  		
  		$requestURI=explode('/',$_SERVER['REQUEST_URI']);
@@ -24,10 +29,12 @@
 				//profile_id removed from database by checking the email and password from the post request
 				//get database object from index.php 
 				//use db object to get profile_id. pass this profile id to get the token 
+				//execute the query here.
 				$this->token = $auth->get_token(123);
 				$this->access = true; 
 				return;
 			}else{
+				
 				$this->access = false; 
 				return;
 			}			
@@ -78,7 +85,7 @@
 			echo "\n";
 			return;			
 		}else{
-			if($this->access==null){echo "AUTH_FAILED\n";return;}
+			if($this->access==null){echo "AUTH_FAILED_X\n";return;}
 			return;
 		}
  		

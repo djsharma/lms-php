@@ -3,11 +3,12 @@
 	class Course{
 		
 		private $profile_id = null;
+		private $db = null;
 
-		function __construct($profileID){
+		function __construct($database,$profileID){
 			$this->profile_id = $profileID;
+			$this->db = $database;
 		}
-
 		
 
 		function dispatch($parse_request){

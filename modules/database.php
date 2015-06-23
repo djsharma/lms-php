@@ -23,8 +23,10 @@
 
  		
  		function execute($query){
- 			$result = mysql_query($query);
- 			return $result;
+
+ 			
+ 				$result = mysql_query($query);
+ 				return $result;
  			
  		}	
 
