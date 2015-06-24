@@ -34,7 +34,7 @@
 							$requestURI = explode('/',$_SERVER['REQUEST_URI']);	
 							if($requestURI[3]!=null){ // POST /submission/:assessment_id
 								//submit an assessment
-								$response = $this->submit_assessment($_POST['submission_date'],$_POST['assessment_id'],$this->profile_id,$requestURI[3]);
+								$response = $this->submit_assessment($_POST['submission_date'],$requestURI[3],$this->profile_id);
 								return $response;
 							}else{
 								echo "ERROR_PARAM_NOTFOUND";
@@ -64,15 +64,45 @@
 							break;
 			}		
 		}
+		
+
 		function get_submission($assessment_id){
-			echo "get submission\n";
-			return;
+			$sql_get_submissions = "select * from submission where assessment_id = ".$assessment_id.";";
+			$result = $this->db->execute($sql_get_submissions);
+
+			$response = array();
+
+ 			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+    			
+    			$data = array();
+				$data["submission_id"] = $row["submission_id"];			
+    			$data["profile_id"] = $row["profile_id"];
+    			$data["submission_date"] = $row["submission_date"];
+    			   			   			
+    			$response[] = $data;
+    		}
+    		return $response;
 		} //get submissions for assessment_id
-		function submit_assessment($submission_date,$assessment_id,$profileID,$assessment_id){
-			echo "submit assessment\n";
-			return;
+		
+
+		function submit_assessment($submission_date,$assessment_id,$profileID){
+			
+			$sql_submit_assessment = "insert into submission values(null,".$assessment_id.",".$profileID.",".$submission_date.");";
+			$result = $this->db->execute($sql_submit_assessment);
+			$response = array();
+		
+			if($result==true){
+				$response['status'] = 'SUCCESS';
+				return $response;
+			}else{
+				$response['status'] = 'FAILED';
+				return $response;
+			}
 		}//submit an assignment for assessment_id
+		
+
 		function delete_submission($submission_id){
+			// this is to be done later just keep in mind
 			echo "delete submission\n";
 			return;
 		}// delete a submission with submission_id 

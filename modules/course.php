@@ -114,7 +114,6 @@
 					$response['status'] = 'FAILED';
 					return $response;
 			}
-			
 		}
 
 
@@ -131,16 +130,14 @@
 				$response['status'] = 'FAILED';
 				return $response;
 			}
-
 		}
 
 
 
 		function delete_course($course_id){
-			
-		echo "delete accessed\n";
-		return;	
-		
+			// this is to be done later just keep in mind 
+			echo "delete accessed\n";
+			return;	
 		}
 
 
@@ -154,20 +151,14 @@
 			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
     			
     			$data = array();
-					
-				
+							
     			$data["course_id"] = $row["course_id"];
     			$data["title"] = $row["title"];
-    			//$data["details"] = $row["details"];
-    			//$data["start_date"] = $row["from_date"];
-    			//$data["end_date"] = $row["to_date"];
-    			//$data["profile_id"] = $row["profile_id"];
-    			
+    			   			
     			$response[] = $data;
     		}
 
     		return $response;
-
 		}
 
 

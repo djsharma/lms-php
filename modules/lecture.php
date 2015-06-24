@@ -51,7 +51,7 @@
 							if($requestURI[3]!=null){   
 								//update lecture with lecture_id
 								// PUT /lecture/:lecture_id
-								$response = $this->update_lecture($requestURI[3]);
+								$response = $this->update_lecture($parse_request['link'],$parse_request['details'],$parse_request['posted'],$requestURI[3]);
 								return $response;
 							}else{
 								
@@ -83,26 +83,70 @@
 
 		// create lecture  
 		function create_lecture($link,$details,$posted,$course_id){
-			echo "create_lecture\n";
-			return;
+			
+			$sql_create_lecture = "insert into lecture values(null,".$course_id.",'".$link."',".$posted.",'".$details."');";
+			$result=$this->db->execute($sql_create_lecture);
+			//echo $result;
+			$response = array();
+		
+			if($result==true){
+					$response['status'] = 'SUCCESS';
+					return $response;
+			}else{
+					$response['status'] = 'FAILED';
+					return $response;
+			}
+			/*echo "create_lecture\n";
+			return;*/
 		}
 
 		//get all lectures for course_id 
 		function get_lecture($course_id){
-			echo "get_lecture\n";
-			return;
+			$sql_get_lecture = "select * from lecture where course_id = ".$course_id.";";
+			//echo $sql_get_lecture;
+			$result=$this->db->execute($sql_get_lecture);
+			$response = array();
+			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+    			
+    			$data = array();
+							
+    			$data["lecture_id"] = $row["lecture_id"];
+    			$data["link"] = $row["link"];
+    			$data["posted_on"] = $row["posted_on"];
+    			$data["details"] = $row["details"];
+    			   			
+    			$response[] = $data;
+    		}
+    		return $response;	
+			/*echo "get_lecture\n";*/
 		}
 
 
-		//update the lecture 
-		function update_lecture(){
-			echo "update_lecture\n";
-			return;	
+		//update the lecture/:lecture_id 
+		function update_lecture($link,$details,$posted,$lecture_id){
+
+			$sql_update_lecture = "update lecture set link = '".$link."', details = '".$details."',posted_on = ".$posted." where lecture_id = ".$lecture_id.";";
+			//echo $sql_update_lecture;
+			$result=$this->db->execute($sql_update_lecture);
+			//echo $result;
+			$response = array();
+		
+			if($result==true){
+					$response['status'] = 'SUCCESS';
+					return $response;
+			}else{
+					$response['status'] = 'FAILED';
+					return $response;
+			}
+
+			/*echo "update_lecture\n";
+			return;	*/
 		}
 
 
 		//delete a lecture(){}
 		function delete_lecture($lecture_id){
+			//delete code to be written later
 			echo "delete_lecture\n";
 			return;
 		}

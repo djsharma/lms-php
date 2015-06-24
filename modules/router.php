@@ -55,7 +55,7 @@ class Router{
 									$response = $course->dispatch($this->parse_request);
 									header('Content-type: application/json');
 									echo json_encode($response);
-									
+
 									//echo "\ncourse accessed\n";
 									//echo $response;
 									break;
@@ -63,33 +63,53 @@ class Router{
 			case 'lecture' : 		
 									$lecture = new Lecture($this->db,$this->profile_id);
 									$response = $lecture->dispatch($this->parse_request);
-									echo "\nlecture accessed\n";
+									header('Content-type: application/json');
+									echo json_encode($response);
+									/*echo "\nlecture accessed\n";*/
 									//echo $response;
 									break;
 			
 			case 'topic' :			
 									$forum = new Forum($this->db,$this->profile_id);
 									$response = $forum->dispatch($this->parse_request);
-									echo "\nforum accessed\n";
-									break;	
+									header('Content-type: application/json');
+									echo json_encode($response);
+									/*echo "\nforum accessed\n";
+									break;	*/
+									break;
 
 			case 'comment':			
 									$comment = new Comment($this->db,$this->profile_id);
 									$response = $comment->dispatch($this->parse_request);
-									echo "comment accessed\n";
+									header('Content-type: application/json');
+									echo json_encode($response);
 									break;
 			case 'assessment':		
 									$assessment = new Assessment($this->db,$this->profile_id);
 									$response = $assessment->dispatch($this->parse_request);
-									echo "assessment accessed\n";
+									header('Content-type: application/json');
+									echo json_encode($response);
+									break;
 			case 'submission':		
 									$submission = new Submission($this->db,$this->profile_id);
 									$response = $submission->dispatch($this->parse_request);
-									echo "submission accessed\n";
+									header('Content-type: application/json');
+									echo json_encode($response);
+									break;
 			case 'announcement':																													
 									$announcement = new Announcement($this->db,$this->profile_id);
 									$response = $announcement->dispatch($this->parse_request);
-									echo "announcement accessed\n";
+									header('Content-type: application/json');
+									echo json_encode($response);
+									break;
+			
+			default:			$response = array();
+									$response['status'] = 'SERVICE_NOTFOUND';
+									header('Content-type: application/json');
+									echo json_encode($response);
+									break;
+			
+										
 		}		
 	}
 

@@ -48,7 +48,6 @@
 
 
 		$verify_result = $auth->verify_token($this->token);	
-
 		if(is_null($verify_result)){
 			
 			$this->access = false;
@@ -56,7 +55,8 @@
 		}	
 
 		//authntication successful
-		$this->profile_id = $auth->get_profile_id();
+		$this->profile_id = $verify_result;
+		
 		$this->access = true;
 		return;
 

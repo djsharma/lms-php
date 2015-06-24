@@ -78,6 +78,7 @@
 		}
 		//DELETE /announcement/:announcement_id
 		function delete_announcement($announcement_id){
+			// this is to be done later just keep in mind
 			echo "delete announcement\n";
 			return;
 		}

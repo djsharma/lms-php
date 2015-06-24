@@ -23,7 +23,7 @@ include './modules/announcement.php';
 		
 		$authenticate->get_response();
 		
-		$profile_id=$authenticate->get_token();
+		$profile_id=$authenticate->get_profile_id(); // replaced from get_token();
 		
 		$router = new Router($db,$profile_id);
 

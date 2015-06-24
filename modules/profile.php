@@ -84,7 +84,6 @@ class Profile{
 						
 						break;
 		}
-
 	}
 
 	
@@ -105,7 +104,6 @@ class Profile{
 			$response['status'] = 'FAILED';
 			return $response;
 		}
-		
 	}	
 
 
@@ -126,7 +124,6 @@ class Profile{
     	}
 
     	return $response;
-
 	}
 
 	function delete_profile($profileID){
@@ -144,7 +141,6 @@ class Profile{
 		}*/
 
 		echo "delete accessed\n";
-		
 	}
 
 	function update_profile($profileID,$first_name,$last_name,$email,$phno,$details,$password){

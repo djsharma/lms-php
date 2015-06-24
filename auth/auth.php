@@ -34,7 +34,7 @@
 				if(!empty($this->key)){
 					
 					$decoded = JWT::decode($jwt, $this->key ,array('HS256'));
-					$this->profile_id = $decoded->profile_id; 
+					$this->profile_id = $decoded->profile_id;
 					return $decoded->profile_id; 
 				}
 				return null;			
