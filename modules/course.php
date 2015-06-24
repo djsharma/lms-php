@@ -60,7 +60,7 @@
 							
 							if($requestURI[3]!=null){   //  PUT /course/:course_id
 								//update course
-								$response = $this->update_course($requestURI[3]);
+								$response = $this->update_course($requestURI[3],$parse_request['title'],$parse_request['details'],$parse_request['start_date'],$parse_request['end_date'],$parse_request['profile_id']);
 								return $response;
 							}else{
 								//get all courses    PUT /course
@@ -96,28 +96,96 @@
 
 
 		function create_course($title, $details, $start_date, $end_date, $profileID_Inst){
-			echo "create_course";
-			return;
+			
+			$sql_create_course = "insert into course values(null,'".$title."','".$details."',".$start_date.",".$end_date.",".$profileID_Inst.");";
+			$result=$this->db->execute($sql_create_course);
+			//echo $result;
+			$response = array();
+		
+			if($result==true){
+					$sql_course_id = "select course_id from course where title ='".$title."';";
+					$result_course_id = $this->db->execute($sql_course_id);
+					$row = mysql_fetch_array($result_course_id, MYSQL_ASSOC);
+			
+					$response['status'] = 'SUCCESS';
+					$response['course_id']=$row['course_id'];
+					return $response;
+			}else{
+					$response['status'] = 'FAILED';
+					return $response;
+			}
+			
 		}
 
-		function update_course($course_id){
-			echo "update_course";
-			return;
+
+
+		function update_course($course_id,$title, $details, $start_date, $end_date, $profileID_Inst){
+			
+			$sql_update_course = "update course set title = '".$title."', details = '".$details."', from_date = ".$start_date.", to_date = ".$end_date.", profile_id = ".$profileID_Inst." where course_id =".$course_id.";";
+			//echo $sql_update_course;
+			$result=$this->db->execute($sql_update_course);
+			if($result==true){
+				$response['status'] = 'SUCCESS';
+				return $response;
+			}else{
+				$response['status'] = 'FAILED';
+				return $response;
+			}
+
 		}
+
+
 
 		function delete_course($course_id){
-			echo "delete_course";
-			return;
+			
+		echo "delete accessed\n";
+		return;	
+		
 		}
+
+
 
 		function get_all_course(){
-			echo "get_all_course";
-			return;
+			
+			$sql_get_all_course = "select * from course;";
+			$result=$this->db->execute($sql_get_all_course);
+			$response = array();
+			
+			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+    			
+    			$data = array();
+					
+				
+    			$data["course_id"] = $row["course_id"];
+    			$data["title"] = $row["title"];
+    			//$data["details"] = $row["details"];
+    			//$data["start_date"] = $row["from_date"];
+    			//$data["end_date"] = $row["to_date"];
+    			//$data["profile_id"] = $row["profile_id"];
+    			
+    			$response[] = $data;
+    		}
+
+    		return $response;
+
 		}
 
+
+
 		function get_course_details($course_id){
-			echo "get_course_details";
-			return;
+			
+			$sql_get_course_datails = "select * from course where course_id =".$course_id.";";
+			$result = $this->db->execute($sql_get_course_datails);
+			$response = array();
+			$row = mysql_fetch_array($result, MYSQL_ASSOC);
+			$response["course_id"] = $row["course_id"];
+			$response["title"] = $row["title"];
+			$response["details"] = $row["details"];
+			$response["start_date"] = $row["from_date"];
+			$response["end_date"] = $row["to_date"];
+			$response["profile_id"] = $row["profile_id"];
+
+			return $response;
 		}
 
 	}

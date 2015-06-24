@@ -87,39 +87,77 @@ class Profile{
 
 	}
 
+	
 	function create_profile($first_name,$last_name,$email,$phno,$details,$password){
+		$sql_create_profile = "insert into profile values(null,'".$first_name."','".$last_name."','".$email."',".$phno.",'".$details."','".$password."');";	
+		$result=$this->db->execute($sql_create_profile);
+		$response = array();
 		
-		echo "\nprofile created\n";
+		if($result==true){
+			$sql_profile_id = "select profile_id from profile where email='".$email."'and password='".$password."';";
+			$result_profile_id = $this->db->execute($sql_profile_id);
+			$row = mysql_fetch_array($result_profile_id, MYSQL_ASSOC);
+			
+			$response['status'] = 'SUCCESS';
+			$response['profile_id']=$row['profile_id'];
+			return $response;
+		}else{
+			$response['status'] = 'FAILED';
+			return $response;
+		}
+		
 	}	
+
 
 	function get_profile($profileID){
 		
-		
+		$sql_get_profile = "select * from profile where profile_id ='".$profileID."';";
+		$result=$this->db->execute($sql_get_profile);
+		$response = array();
+		while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+    		
 			
-			$result=$this->db->execute("select * from profile");
-			
-			//$result = $bind->execute("select * from profile");
-			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-    			printf("%s %s \n", $row["first_name"], $row["last_name"]);  
-			}
-			mysql_free_result($result);
-			
-		 	
-		
-		echo "\nget profile\n";
-		echo $profileID;
-		echo "\n";
+    			$response["first_name"] = $row["first_name"];
+    			$response["last_name"] = $row["last_name"];
+    			$response["email"] = $row["email"];
+    			$response["phno"] = $row["phno"];
+    			$response["details"] = $row["details"];
+    			$response["password"] = $row["password"];
+    	}
+
+    	return $response;
+
 	}
 
 	function delete_profile($profileID){
-		echo "\nprofile deleted\n";
-		echo $profileID;
-		echo "\n";
+		
+		/*$sql_delete_profile = "update profile set valid = 0 where profile_id = ".$profileID.";";
+		$result=$this->db->execute($sql_delete_profile);
+		$response = array();
+		
+		if($result==true){
+			$response['status'] = 'SUCCESS';
+			return $response;
+		}else{
+			$response['status'] = 'FAILED';
+			return $response;
+		}*/
+
+		echo "delete accessed\n";
+		
 	}
 
 	function update_profile($profileID,$first_name,$last_name,$email,$phno,$details,$password){
-		
-		echo "\nprofile updated\n";
+		$sql_update_profile = "update profile set valid = 0, first_name = '".$first_name."', last_name = '".$last_name."', email = '".$email."', phno = ".$phno.", details ='".$details."', password = '".$password."' where profile_id = ".$profileID.";";
+		$result=$this->db->execute($sql_update_profile);
+		if($result==true){
+			$response['status'] = 'SUCCESS';
+			return $response;
+		}else{
+			$response['status'] = 'FAILED';
+			return $response;
+		}
+		//echo "\nprofile updated\n";
 	}
 
 

@@ -38,8 +38,11 @@ class Router{
 			case 'profile' : 
 									$profile = new Profile($this->db,$this->profile_id);
 									$response = $profile->dispatch($this->parse_request);
-									echo "profile accessed\n";
-									echo $response;
+									header('Content-type: application/json');
+									echo json_encode($response);
+
+									//echo "profile accessed\n";
+									//echo $response;
 									break;
 
 			case 'authenticate' : 	
@@ -50,7 +53,10 @@ class Router{
 			case 'course' : 		
 									$course = new Course($this->db,$this->profile_id);
 									$response = $course->dispatch($this->parse_request);
-									echo "\ncourse accessed\n";
+									header('Content-type: application/json');
+									echo json_encode($response);
+									
+									//echo "\ncourse accessed\n";
 									//echo $response;
 									break;
 
