@@ -46,12 +46,13 @@ class Profile{
 							return;
 						}
 						
-			case 'POST'://create a profile
+			// this service is now available from authenticate. This is done to solve the issue that to access this service needs token.
+			/*case 'POST'://create a profile
 						//   /profile
 						$requestURI = explode('/',$_SERVER['REQUEST_URI']);	
 						$response = $this->create_profile($_POST['first_name'],$_POST['last_name'],$_POST['email'],$_POST['phno'],$_POST['details'],$_POST['password']);
 						return $response;
-						break;
+						break;*/
 			
 			case 'PUT':	//update profile
 						//   /profile/:profile_id
@@ -94,9 +95,9 @@ class Profile{
 		
 		if($result==true){
 			$sql_profile_id = "select profile_id from profile where email='".$email."'and password='".$password."';";
+			
 			$result_profile_id = $this->db->execute($sql_profile_id);
 			$row = mysql_fetch_array($result_profile_id, MYSQL_ASSOC);
-			
 			$response['status'] = 'SUCCESS';
 			$response['profile_id']=$row['profile_id'];
 			return $response;
@@ -120,7 +121,7 @@ class Profile{
     			$response["email"] = $row["email"];
     			$response["phno"] = $row["phno"];
     			$response["details"] = $row["details"];
-    			$response["password"] = $row["password"];
+    			//$response["password"] = $row["password"];
     	}
 
     	return $response;

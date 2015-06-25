@@ -78,6 +78,10 @@
 				$data["submission_id"] = $row["submission_id"];			
     			$data["profile_id"] = $row["profile_id"];
     			$data["submission_date"] = $row["submission_date"];
+    			$data["max_marks"] = $row["max_marks"];
+    			$data["weightage"] = $row["weightage"];
+    			$data["date_of_assess"] = $row["date_of_assess"];
+    			$data["duration"] = $row["duration"];
     			   			   			
     			$response[] = $data;
     		}

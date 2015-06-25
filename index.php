@@ -13,12 +13,15 @@ include './modules/comment.php';
 include './modules/assessment.php';
 include './modules/submission.php';
 include './modules/announcement.php';
+include './modules/registration.php';
 
 	$db = new Db('localhost','root','root');
 
 	
 	$authenticate = new Authenticate($db);
 	
+
+
 	if($authenticate->get_access()) {
 		
 		$authenticate->get_response();

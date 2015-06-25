@@ -103,7 +103,15 @@ class Router{
 									echo json_encode($response);
 									break;
 			
-			default:			$response = array();
+			
+			case 'register':		$register = new Registration($this->db,$this->profile_id);
+									$response = $register->dispatch($this->parse_request);
+									header('Content-type: application/json');
+									echo json_encode($response);
+									break;
+										
+
+			default:				$response = array();
 									$response['status'] = 'SERVICE_NOTFOUND';
 									header('Content-type: application/json');
 									echo json_encode($response);
