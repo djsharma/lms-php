@@ -23,9 +23,8 @@
 								return $response;
 							}else{
 
-								echo "ERROR_PARAM_FOUND";
-								return;
-								break;
+								$response['status'] = 'ERROR_PARAM_FOUND';
+								return $response;		
 							}	
 							break;
 				
@@ -39,9 +38,8 @@
 								//echo $_POST['topic'];
 								return $response;
 							}else{
-								echo "ERROR_PARAM_FOUND";
-								return;
-								break;	
+								$response['status'] = 'ERROR_PARAM_FOUND';
+								return $response;		
 							}	
 							break;
 				
@@ -53,9 +51,8 @@
 								$response = $this->update_topic($parse_request['topic'],$parse_request['text'],$requestURI[3]);
 								return $response;
 							}else{
-								echo "ERROR_PARAM_NOTFOUND";
-								return;
-								break;
+								$response['status'] = 'ERROR_PARAM_NOTFOUND';
+								return $response;		
 							}	
 							break;			
 
@@ -69,13 +66,13 @@
 								return $response;
 								break;
 							}else{
-								echo "ERROR_PARAM_NOTFOUND";
-								return;
-								break;
+								$response['status'] = 'ERROR_PARAM_NOTFOUND';
+								return $response;		
 							}
 							
 				default: 	// error messege return 
-							echo "error http method";
+							$response['status'] = 'ERROR_SERVICE_NOTFOUND';
+							return $response;
 							break;
 			}
 		}	

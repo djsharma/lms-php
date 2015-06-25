@@ -112,7 +112,7 @@ class Router{
 										
 
 			default:				$response = array();
-									$response['status'] = 'SERVICE_NOTFOUND';
+									$response['status'] = 'ERROR_SERVICE_NOTFOUND';
 									header('Content-type: application/json');
 									echo json_encode($response);
 									break;

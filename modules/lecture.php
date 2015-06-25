@@ -25,8 +25,8 @@
 								return $response;
 							}else{
 								
-								echo "ERROR_PARAM_NOTFOUND";	
-								break;			
+								$response['status'] = 'ERROR_PARAM_NOTFOUND';
+								return $response;		
 							}	
 							break;			
 
@@ -39,8 +39,8 @@
 								return $response;	
 								break;
 							}else{
-								echo "ERROR_PARAM_NOTFOUND";
-								break;
+								$response['status'] = 'ERROR_PARAM_NOTFOUND';
+								return $response;		
 							}
 							break;			
 							
@@ -55,8 +55,8 @@
 								return $response;
 							}else{
 								
-								echo "ERROR_PARAM_NOTFOUND";	
-								break;			
+								$response['status'] = 'ERROR_PARAM_NOTFOUND';
+								return $response;		
 							}	
 							break;			
 
@@ -69,13 +69,13 @@
 								return $response;
 								break;
 							}else{
-								echo "ERROR_PARAM_NOTFOUND";
-								return $response;
-								break;
+								$response['status'] = 'ERROR_PARAM_NOTFOUND';
+								return $response;		
 							}
 							
 				default: 	// error messege return 
-							echo "error http method";
+							$response['status'] = 'ERROR_SERVICE_NOTFOUND';
+							return $response;
 							break;
 			}
 		}

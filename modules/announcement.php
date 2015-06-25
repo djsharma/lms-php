@@ -22,9 +22,8 @@
 								return $response;
 							}else{
 
-								echo "ERROR_PARAM_NOTFOUND\n";
-								return;
-								break;
+								$response['status'] = 'ERROR_PARAM_NOTFOUND';
+								return $response;		
 							}	
 							break;
 				
@@ -38,9 +37,8 @@
 								$response = $this->create_announcement($_POST['announcement_text'],$_POST['date'],$this->profile_id,$requestURI[3]);
 								return $response;
 							}else{
-								echo "ERROR_PARAM_NOTFOUND\n";
-								return;
-								break;	
+								$response['status'] = 'ERROR_PARAM_NOTFOUND';
+								return $response;			
 							}	
 							break;
 				
@@ -55,13 +53,13 @@
 								return $response;
 								break;
 							}else{
-								echo "ERROR_PARAM_NOTFOUND\n";
-								return;
-								break;
+								$response['status'] = 'ERROR_PARAM_NOTFOUND';
+								return $response;		
 							}
 							
 				default: 	// error messege return 
-							echo "error http method";
+							$response['status'] = 'ERROR_SERVICE_NOTFOUND';
+							return $response;		
 							break;
 			}	
 		}

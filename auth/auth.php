@@ -23,8 +23,6 @@
 			$token['profile_id'] = $profileID;
 			$jwt = JWT::encode($token, $this->key);
 			return $jwt; //token
-		
-
 		}
 
 		function verify_token($jwt){
@@ -42,7 +40,6 @@
 			}catch(Exception $e){
 				return null;
 			}
-						
 		}
 
 	}

@@ -42,8 +42,8 @@ class Profile{
 							return $response;	
 							break;
 						}else{
-							echo "ERROR_PARAM_NOTFOUND";
-							return;
+							$response['status'] = 'ERROR_PARAM_NOTFOUND';
+							return $response;
 						}
 						
 			// this service is now available from authenticate. This is done to solve the issue that to access this service needs token.
@@ -62,8 +62,8 @@ class Profile{
 							return $response;
 							break;
 			 			}else{
-							echo "ERROR_PARAM_NOTFOUND";
-							return;
+							$response['status'] = 'ERROR_PARAM_NOTFOUND';
+							return $response;
 						}
 						
 
@@ -75,26 +75,28 @@ class Profile{
 							return $response;
 							break;
 						}else{
-							echo "ERROR_PARAM_NOTFOUND";
-							break;
+							$response['status'] = 'ERROR_PARAM_NOTFOUND';
+							return $response;
 						}
 						break;
 
 
 			default: 	// error messege return 
-						
+						$response['status'] = 'ERROR_SERVICE_NOTFOUND';
+						return $response;
 						break;
 		}
 	}
 
 	
 	function create_profile($first_name,$last_name,$email,$phno,$details,$password){
+		
 		$sql_create_profile = "insert into profile values(null,'".$first_name."','".$last_name."','".$email."',".$phno.",'".$details."','".$password."');";	
 		$result=$this->db->execute($sql_create_profile);
 		$response = array();
 		
 		if($result==true){
-			$sql_profile_id = "select profile_id from profile where email='".$email."'and password='".$password."';";
+			$sql_profile_id = "select profile_id from profile where email='".$email."';";
 			
 			$result_profile_id = $this->db->execute($sql_profile_id);
 			$row = mysql_fetch_array($result_profile_id, MYSQL_ASSOC);

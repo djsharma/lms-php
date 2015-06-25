@@ -28,15 +28,17 @@
 			//get the profile_id checked here by using email and password form the post request
 			if($_SERVER['REQUEST_METHOD']=='POST'){
 				//-----------------------------------------------------------CHECK IN DB-------------------------------------------------------------------------------------
+				
 				$email = $_POST['email'];
-				$password = $_POST['password'];
-
+				$password = md5($_POST['password']);
 				$sql_authenticate = "select * from profile where email = '".$email."' and password = '".$password."';";
 				$result = $this->db->execute($sql_authenticate);
 				
 				$row = mysql_fetch_array($result, MYSQL_ASSOC);
  				//echo $row['profile_id'];
+ 				
  				if($row == null ){$this->access = false; return;} // send this in json format
+ 				 				//echo $row['password'];
  				$this->profile_id = $row['profile_id'];						
 				//------------------------------------------------------------------------------------------------------------------------------------------------- 					
 
@@ -63,7 +65,7 @@
 			
 			$profile = new Profile($this->db,$this->profile_id);
 			$requestURI = explode('/',$_SERVER['REQUEST_URI']);	
-			$this->profile_response = $profile->create_profile($_POST['first_name'],$_POST['last_name'],$_POST['email'],$_POST['phno'],$_POST['details'],$_POST['password']);
+			$this->profile_response = $profile->create_profile($_POST['first_name'],$_POST['last_name'],$_POST['email'],$_POST['phno'],$_POST['details'],md5($_POST['password']));
 			$this->access = false;
 			return;
 		}
@@ -88,9 +90,6 @@
 		return;
  	}
  	
-
-
-
  	/////////////////////////////////////////////////////////////////
  	function get_access(){
  		return $this->access;
@@ -141,7 +140,6 @@
 			} // send this in json
 			return;
 		}
- 		
  	}
 
 

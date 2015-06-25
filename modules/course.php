@@ -47,10 +47,9 @@
 								$response = $this->create_course($_POST['title'],$_POST['details'],$_POST['start_date'],$_POST['end_date'],$_POST['profile_id']);
 								return $response;
 							}else{
-							
-								echo "ERROR_PARAM_FOUND";
+								
+								$response['status'] = 'ERROR_PARAM_FOUND';
 								return $response;
-								break;	
 							}	
 							break;
 				
@@ -64,9 +63,9 @@
 								return $response;
 							}else{
 								//get all courses    PUT /course
-								echo "ERROR_PARAM_NOTFOUND";
+								$response['status'] = 'ERROR_PARAM_NOTFOUND';
 								return $response;
-								break;
+								
 							}	
 							break;			
 
@@ -83,13 +82,14 @@
 								return $response;
 								break;
 							}else{
-								echo "ERROR_PARAM_NOTFOUND";
+							
+								$response['status'] = 'ERROR_PARAM_NOTFOUND';
 								return $response;
-								break;
 							}
 							
 				default: 	// error messege return 
-							echo "error http method";
+							$response['status'] = 'ERROR_SERVICE_NOTFOUND';
+							return $response;
 							break;
 			}
 		}

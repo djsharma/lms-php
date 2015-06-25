@@ -24,9 +24,8 @@ class Comment{
 								return $response;
 							}else{
 
-								echo "ERROR_PARAM_NOTFOUND";
-								return;
-								break;
+								$response['status'] = 'ERROR_PARAM_NOTFOUND';
+								return $response;		
 							}	
 							break;
 				
@@ -39,9 +38,8 @@ class Comment{
 								$response = $this->create_comment($_POST['comment'],$requestURI[3],$this->profile_id);
 								return $response;
 							}else{
-								echo "ERROR_PARAM_NOTFOUND";
-								return;
-								break;	
+								$response['status'] = 'ERROR_PARAM_NOTFOUND';
+								return $response;		
 							}	
 							break;
 				
@@ -53,9 +51,8 @@ class Comment{
 								$response = $this->update_comment($parse_request['comment'],$requestURI[3]);
 								return $response;
 							}else{
-								echo "ERROR_PARAM_NOTFOUND";
-								return;
-								break;
+								$response['status'] = 'ERROR_PARAM_NOTFOUND';
+								return $response;		
 							}	
 							break;			
 
@@ -69,13 +66,13 @@ class Comment{
 								return $response;
 								break;
 							}else{
-								echo "ERROR_PARAM_NOTFOUND";
-								return;
-								break;
+								$response['status'] = 'ERROR_PARAM_NOTFOUND';
+								return $response;		
 							}
 							
 				default: 	// error messege return 
-							echo "error http method";
+							$response['status'] = 'ERROR_SERVICE_NOTFOUND';
+							return $response;
 							break;
 			}		
 	}

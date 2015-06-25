@@ -15,6 +15,8 @@ include './modules/submission.php';
 include './modules/announcement.php';
 include './modules/registration.php';
 
+
+
 	$db = new Db('localhost','root','root');
 
 	

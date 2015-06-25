@@ -22,9 +22,8 @@
 								return $response;
 							}else{
 
-								echo "ERROR_PARAM_NOTFOUND";
-								return;
-								break;
+								$response['status'] = 'ERROR_PARAM_NOTFOUND';
+								return $response;		
 							}	
 							break;
 				
@@ -37,9 +36,8 @@
 								$response = $this->create_assessment($_POST['assessment_name'],$_POST['details'],$_POST['max_marks'],$_POST['weightage'],$_POST['date_of_assess'],$_POST['time_of_assess'],$_POST['duration'],$requestURI[3]);
 								return $response;
 							}else{
-								echo "ERROR_PARAM_NOTFOUND";
-								return;
-								break;	
+								$response['status'] = 'ERROR_PARAM_NOTFOUND';
+								return $response;		
 							}	
 							break;
 				
@@ -51,9 +49,8 @@
 								
 								return $response;
 							}else{
-								echo "ERROR_PARAM_NOTFOUND";
-								return;
-								break;
+								$response['status'] = 'ERROR_PARAM_NOTFOUND';
+								return $response;		
 							}	
 							break;			
 
@@ -67,13 +64,13 @@
 								return $response;
 								break;
 							}else{
-								echo "ERROR_PARAM_NOTFOUND";
-								return;
-								break;
+								$response['status'] = 'ERROR_PARAM_NOTFOUND';
+								return $response;		
 							}
 							
 				default: 	// error messege return 
-							echo "error http method";
+							$response['status'] = 'ERROR_SERVICE_NOTFOUND';
+							return $response;
 							break;
 			}		
  	}
